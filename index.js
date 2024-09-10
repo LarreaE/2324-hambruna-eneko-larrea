@@ -531,7 +531,6 @@ donut con menos fibra (+ 50 exp)
 
 */
 
-showDonutsUpdated()
 function showHighestDonuts()
 {
 	let highestProtein = 0;
@@ -657,7 +656,7 @@ function showDonutsUpdated()
 
 */
 
-listDonuts();
+donutMedia();
 
 function listDonuts()
 {
@@ -678,4 +677,18 @@ function listDonuts()
 		
 	}
 
+}
+
+function donutMedia()
+{
+	let totalCal = 0;
+	let totalDonuts = 0;
+	for (const key in data.items.item) {
+		totalCal += data.items.item[key].nutrition_facts.nutrition.calories
+		totalDonuts++;
+	}
+	let media = totalCal / totalDonuts;
+	
+	console.log("la media de calorias entre todos los donuts (" + totalDonuts + ") es de " + media + " calorias");
+	
 }
