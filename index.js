@@ -531,13 +531,12 @@ donut con menos fibra (+ 50 exp)
 
 */
 
-showHighestDonuts();
 
 function showHighestDonuts()
 {
 	let highestProtein = 0;
 	let highestSugar = 0;
-	let highestFibre = 0;
+	let leatFibre = parseInt(data.items.item[0].nutrition_facts.nutrition.carbohydrate.carbs_detail.type.fibre) // convertimos el string a un numero
 	let highestIron = 0;
 	
 	let donutNameProtein;
@@ -567,10 +566,10 @@ function showHighestDonuts()
 			donutNameSugar = data.items.item[key].name
 			highestSugar = sugarNum;	
 		}
-		if (highestFibre < fibreNum) 
+		if (leatFibre > fibreNum) 
 		{	
 			donutNamefibre = data.items.item[key].name
-			highestFibre = fibreNum;	
+			leatFibre = fibreNum;	
 		}
 		if (highestIron < ironNum) 
 		{	
@@ -581,8 +580,44 @@ function showHighestDonuts()
 	
 	console.log("the highest protein donut is " + donutNameProtein + " with : " + highestProtein + "g");	// imprimimos enunciado
 	console.log("the highest sugar donut is " + donutNameSugar + " with : " + highestSugar + "g");
-	console.log("the highest fibre donut is " + donutNamefibre + " with : " + highestFibre + "g");
+	console.log("the Least fibre donut is " + donutNamefibre + " with : " + leatFibre + "g");
 	console.log("the highest iron percentage donut is " + donutNameIron + " with : " + highestIron + "%");
 	
 }
 
+/* 
+2.- Necesitamos saber si la ingesta de calorías, grasas y carbohidratos puede mellar nuestra agilidad por lo que necesitamos:
+
+	Listar todos los donuts y sus calorías (+ 50 exp)
+
+	Listar todos los donuts y sus carbohidratos (+ 50 exp)
+
+	Mostrar la media de calorías de todos los donuts (+ 50 exp)
+
+	Mostrar la suma de las grasas saturadas de todos los donuts (+ 50 exp)
+
+	Mostrar el porcentaje medio de cada vitamina (+ 50 exp)
+
+*/
+
+listDonuts();
+
+function listDonuts()
+{
+
+	for (const key in data.items.item) {
+		
+		let calories = data.items.item[key].nutrition_facts.nutrition.calories;
+		console.log(data.items.item[key].name + " has " + calories +" calories");
+		
+	}
+
+	for (const key in data.items.item) {
+		
+		let carbohydrates = data.items.item[key].nutrition_facts.nutrition.carbohydrate.carbs_detail;
+		console.log(data.items.item[key].name + " has ");
+		console.log(carbohydrates);
+		
+		
+	}
+}
