@@ -656,7 +656,7 @@ function showDonutsUpdated()
 
 */
 
-donutMedia();
+listDonuts();
 
 function listDonuts()
 {
@@ -677,18 +677,73 @@ function listDonuts()
 		
 	}
 
+	donutMedia();
+	showVitamines();
 }
 
 function donutMedia()
 {
 	let totalCal = 0;
 	let totalDonuts = 0;
+	let grasas = 0;
 	for (const key in data.items.item) {
+		
 		totalCal += data.items.item[key].nutrition_facts.nutrition.calories
+		grasas += parseFloat(data.items.item[key].nutrition_facts.nutrition.fat.fat_type.saturated)
 		totalDonuts++;
 	}
 	let media = totalCal / totalDonuts;
 	
 	console.log("la media de calorias entre todos los donuts (" + totalDonuts + ") es de " + media + " calorias");
+	console.log("la cantidad total de grasas saturadas en " + totalDonuts + " donuts es de " + grasas + "g");	
+
+}
+
+function showVitamines()
+{
+	let vitamineCtotal = 0;		// todo en porcentajes
+	let vitamineAtotal = 0;
+	let calciumtotal = 0;
+	let ironTotal = 0;
+
+	let donutsTotal = 0;
+
+	for (const key in data.items.item) {
+		
+		// console.log("Las vitaminas de el donut " + data.items.item[key].name + " son las siguientes:");
+		// console.log(data.items.item[key].nutrition_facts.nutrition.vitamines);
+		// let vitamineTotal = 0;
+	
+		// for (let i = 0; i < data.items.item.nutrition_facts.nutrition.vitamines.length; i++) 
+		// {
+		// 	vitamineTotal +=  parseFloat(data.items.item[key].nutrition_facts.nutrition.vitamines[i].percent)
+		// }
+		// for (const vit in data.items.item.nutrition_facts.nutrition.vitamines) {
+		// }
+
+		// console.log("la media de '" + data.items.item[key].nutrition_facts.nutrition.vitamines[donutsTotal].type + "' es de " );
+		
+
+		vitamineAtotal 	+= parseFloat(data.items.item[key].nutrition_facts.nutrition.vitamines[0].percent)
+		vitamineCtotal 	+= parseFloat(data.items.item[key].nutrition_facts.nutrition.vitamines[1].percent)
+		calciumtotal	+= parseFloat(data.items.item[key].nutrition_facts.nutrition.vitamines[2].percent)
+		ironTotal	 	+= parseFloat(data.items.item[key].nutrition_facts.nutrition.vitamines[3].percent)
+
+		donutsTotal++;
+	}
+
+	let mediaVitC = vitamineCtotal / donutsTotal;
+	let mediaVitA = vitamineAtotal / donutsTotal;
+	let mediaCal = calciumtotal / donutsTotal;
+	let mediaIron = ironTotal / donutsTotal;
+
+	console.log("La media de vitamina C es de: " + mediaVitC + "%");
+	console.log("La media de vitamina A es de: " + mediaVitA + "%");
+	console.log("La media de Calcio es de: " + mediaCal + "%");
+	console.log("La media de hierro es de: " + mediaIron + "%");
+
+	// console.log(data.items.item.length);
+	
+
 	
 }
