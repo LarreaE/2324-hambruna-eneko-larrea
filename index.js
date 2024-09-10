@@ -582,8 +582,7 @@ function showHighestDonuts()
 	console.log("the highest protein donut is " + donutNameProtein + " with : " + highestProtein + "g");	// imprimimos enunciado
 	console.log("the highest sugar donut is " + donutNameSugar + " with : " + highestSugar + "g");
 	console.log("the highest fibre donut is " + donutNamefibre + " with : " + highestFibre + "g");
-	console.log("the highest protein donut is " + donutNameIron + " with : " + highestIron + "%");
-	
+	console.log("the highest iron percentage donut is " + donutNameIron + " with : " + highestIron + "%");
 	
 }
 
