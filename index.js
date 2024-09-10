@@ -531,8 +531,7 @@ donut con menos fibra (+ 50 exp)
 
 */
 
-showHighestDonuts();
-
+showDonutsUpdated()
 function showHighestDonuts()
 {
 	let highestProtein = 0;
@@ -555,6 +554,8 @@ function showHighestDonuts()
 		let fibreNum = parseInt(data.items.item[key].nutrition_facts.nutrition.carbohydrate.carbs_detail.type.fibre) // convertimos el string a un numero
 		let ironNum = parseInt(data.items.item[key].nutrition_facts.nutrition.vitamines[3].percent) // convertimos el string a un numero
 	
+
+		let drawFibre = []; // array por si se dan varios casos
 		console.log(ironNum);
 		
 		if (highestProtein < proteinNum) //hacemos comprobacion con el numero mas grande conseguido y el actual.
@@ -567,11 +568,10 @@ function showHighestDonuts()
 			donutNameSugar = data.items.item[key].name
 			highestSugar = sugarNum;	
 		}
-		if (leatFibre >= fibreNum) // relaxing alchemy and hell cake have the same amount
+		if (leatFibre > fibreNum) // relaxing alchemy and hell cake have the same amount
 		{	
 			donutNamefibre = data.items.item[key].name
 			leatFibre = fibreNum;	
-			console.log(donutNamefibre);
 			
 		}
 		if (highestIron < ironNum) 
@@ -588,6 +588,60 @@ function showHighestDonuts()
 	
 }
 
+function showDonutsUpdated()
+{
+	let highestProtein = 0;
+	let highestSugar = 0;
+	let leastFibre = parseInt(data.items.item[0].nutrition_facts.nutrition.carbohydrate.carbs_detail.type.fibre) || Number.MAX_SAFE_INTEGER;
+	let highestIron = 0;
+
+	let donutNamesProtein = [];
+	let donutNamesSugar = [];
+	let donutNamesIron = [];
+	let donutNamesFibre = [];
+
+	for (const key in data.items.item) {
+
+		let proteinNum = parseInt(data.items.item[key].nutrition_facts.nutrition.proteine) || 0; // Convertimos el string a un número o lo establecemos en 0 si no es válido
+		let sugarNum = parseInt(data.items.item[key].nutrition_facts.nutrition.carbohydrate.carbs_detail.type.sugars) || 0;
+		let fibreNum = parseInt(data.items.item[key].nutrition_facts.nutrition.carbohydrate.carbs_detail.type.fibre) || Number.MAX_SAFE_INTEGER;
+		let ironNum = parseInt(data.items.item[key].nutrition_facts.nutrition.vitamines[3].percent) || 0; 
+		//comparaciones
+		if (proteinNum > highestProtein) {
+			highestProtein = proteinNum;
+			donutNamesProtein = [data.items.item[key].name]; // Reiniciamos la lista con el nuevo más alto
+		} else if (proteinNum === highestProtein) {
+			donutNamesProtein.push(data.items.item[key].name); // Agregamos si es un empate
+		}
+
+		if (sugarNum > highestSugar) {
+			highestSugar = sugarNum;
+			donutNamesSugar = [data.items.item[key].name]; 
+		} else if (sugarNum === highestSugar) {
+			donutNamesSugar.push(data.items.item[key].name);
+		}
+
+		if (fibreNum < leastFibre) {
+			leastFibre = fibreNum;
+			donutNamesFibre = [data.items.item[key].name];
+		} else if (fibreNum === leastFibre) {
+			donutNamesFibre.push(data.items.item[key].name);
+		}
+
+		if (ironNum > highestIron) {
+			highestIron = ironNum;
+			donutNamesIron = [data.items.item[key].name]; 
+		} else if (ironNum === highestIron) {
+			donutNamesIron.push(data.items.item[key].name);
+		}
+	}
+
+	console.log("The highest protein donuts are: " + donutNamesProtein.join(", ") + " with: " + highestProtein + "g");
+	console.log("The highest sugar donuts are: " + donutNamesSugar.join(", ") + " with: " + highestSugar + "g");
+	console.log("The least fibre donuts are: " + donutNamesFibre.join(", ") + " with: " + leastFibre + "g");
+	console.log("The highest iron percentage donuts are: " + donutNamesIron.join(", ") + " with: " + highestIron + "%");
+
+}
 /* 
 2.- Necesitamos saber si la ingesta de calorías, grasas y carbohidratos puede mellar nuestra agilidad por lo que necesitamos:
 
