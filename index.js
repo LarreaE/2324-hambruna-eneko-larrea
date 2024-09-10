@@ -531,6 +531,7 @@ donut con menos fibra (+ 50 exp)
 
 */
 
+showHighestDonuts();
 
 function showHighestDonuts()
 {
@@ -566,10 +567,12 @@ function showHighestDonuts()
 			donutNameSugar = data.items.item[key].name
 			highestSugar = sugarNum;	
 		}
-		if (leatFibre > fibreNum) 
+		if (leatFibre >= fibreNum) // relaxing alchemy and hell cake have the same amount
 		{	
 			donutNamefibre = data.items.item[key].name
 			leatFibre = fibreNum;	
+			console.log(donutNamefibre);
+			
 		}
 		if (highestIron < ironNum) 
 		{	
@@ -620,4 +623,5 @@ function listDonuts()
 		
 		
 	}
+
 }
