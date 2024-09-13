@@ -671,7 +671,7 @@ function listDonuts()
 	for (const key in data.items.item) {
 		
 		let carbohydrates = data.items.item[key].nutrition_facts.nutrition.carbohydrate.carbs_detail;
-		console.log(data.items.item[key].name + " has ");
+		console.log(data.items.item[key].name + " has the following carbohydrates:");
 		console.log(carbohydrates);
 		
 		
@@ -746,4 +746,64 @@ function showVitamines()
 	
 
 	
+}
+
+/* 
+3.- El horno a la leña de esta posada es de alta calidad, debemos lanzar un hechizo para saber qué tipo de masa utilizan
+
+	Listar cada donut con sus posibles masas, batter (+ 50 exp)
+
+	Listar cada donut con sus posibles extras topping (+ 50 exp)
+
+
+*/
+
+posibleMasses();
+posibleToppings();
+
+function posibleMasses()
+{
+	for (const key in data.items.item) {
+		
+		let batter = data.items.item[key].batters.batter;
+		console.log(data.items.item[key].name + " has the following batter");
+		console.log(batter);
+	
+	}
+}
+function posibleToppings()
+{
+	for (const key in data.items.item) {
+		
+		let toppings = data.items.item[key].topping;
+		console.log(data.items.item[key].name + " has the following toppings ");
+		console.log(toppings);
+	
+	}
+}
+
+/* 
+4.- Nuestro grupo sólo dispone de 4 monedas de plata.
+
+	Mostrar cuántos donuts de cada tipo podemos comprar y las monedas sobrantes. (+ 50 exp)
+
+*/
+
+donutPurchase();
+
+function donutPurchase()
+{
+	for (const key in data.items.item) { //a loop for each donut
+		let wallet = 4;
+		let units = 0;
+		
+		while(wallet > data.items.item[key].ppu) //if we have more than it costs he donut
+			{
+				units++;
+				wallet -= data.items.item[key].ppu; 
+			}
+		
+		console.log("With 4 coins you can buy " + units + " " + data.items.item[key].name + " donuts (ppu: " + data.items.item[key].ppu + ")");
+
+	}
 }
