@@ -807,3 +807,73 @@ function donutPurchase()
 
 	}
 }
+
+
+/*
+5.- Para nuestro horror y preocupación hemos detectado grandes errores sintácticos en el conjuro original, es momento de poner nuestros conocimientos arcanos al servicio de toda la posada.
+
+Los donuts con el colesterol > 12 modificar las grasas trans a 3,2 gr (+ 50 exp)
+
+Donuts con azúcar > 50  modificar el amount de los detalles de carbohidratos a 42gr (+ 50 exp)
+
+Añadir una vitamina llamada "Nitacina" al donut con el nombre "Magic Fusion" (+ 50 exp)
+
+El daily value de los carbohidratos de todos los donuts va a ser de 53% (+ 50 exp)
+
+Crearle un nuevo atributo "Alergen" al donut llamado "Relaxing Alchemy" y que dentro de el ponga "Gluten Free" (+ 50 exp)
+
+*/
+
+modifyDonuts();
+
+function modifyDonuts()
+{
+	for (const key in data.items.item) {
+		//modify fat depending on cholesterol
+		if (parseInt(data.items.item[key].nutrition_facts.nutrition.cholesterol.amount) > 12) {
+			data.items.item[key].nutrition_facts.nutrition.fat.fat_type.trans = "3,2gr"
+		}
+		console.log("Cholesterol of " + data.items.item[key].name + ": " + data.items.item[key].nutrition_facts.nutrition.cholesterol.amount );
+		console.log("Trans Fat of " + data.items.item[key].name + ": " + data.items.item[key].nutrition_facts.nutrition.fat.fat_type.trans );
+	
+		//modify carbs depending on sugar
+		if (parseInt(data.items.item[key].nutrition_facts.nutrition.carbohydrate.carbs_detail.type.sugars) > 50) {
+			data.items.item[key].nutrition_facts.nutrition.carbohydrate.carbs_detail.amount = "42gr"
+		}
+		console.log("Sugars in " + data.items.item[key].name + ": " + data.items.item[key].nutrition_facts.nutrition.carbohydrate.carbs_detail.type.sugars );
+		console.log("Amount of carbohydrates in " + data.items.item[key].name + ": " + data.items.item[key].nutrition_facts.nutrition.carbohydrate.carbs_detail.amount );
+		
+		//add nitacina viamin into magic fusion
+
+		if (data.items.item[key].name === "Magic Fusion") 
+		{
+			let nitacina = {
+				type: "Nitacina",
+				percent: "4%"
+			}
+
+			data.items.item[key].nutrition_facts.nutrition.vitamines.push(nitacina);
+
+			console.log("Added Nitacina into " + data.items.item[key].name);
+			console.log(data.items.item[key].nutrition_facts.nutrition.vitamines);			
+		}
+
+		//modify carbs dayly value into 53% in all donuts
+		data.items.item[key].nutrition_facts.nutrition.carbohydrate.daily_value = "53%";
+		console.log("The carbohydrates daily values of " +data.items.item[key].name + " are " + data.items.item[key].nutrition_facts.nutrition.carbohydrate.daily_value);
+		
+
+		//add gluten free attribute into relaxing alchemy
+
+		if (data.items.item[key].name === "Relaxing Alchemy") 
+			{
+				let attr = {
+					alergen: "Gluten Free",
+				}
+	
+				data.items.item[key] = {...data.items.item[key], ...attr}
+				console.log("Added Gluten Free into " + data.items.item[key].name);
+				console.log(data.items.item[key]);			
+			}
+	}
+}
