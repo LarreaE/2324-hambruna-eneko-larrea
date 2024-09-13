@@ -27,6 +27,8 @@ donut con menos fibra (+ 50 exp)
 
 */
 
+console.log("1.- ");
+
 showDonutsUpdated();
 
 separate();
@@ -156,6 +158,7 @@ function showDonutsUpdated()
 
 */
 
+console.log("2.- ");
 listDonuts();
 separate();
 
@@ -255,6 +258,8 @@ function showVitamines()
 
 */
 
+console.log("3.- ");
+
 posibleMasses();
 posibleToppings();
 separate();
@@ -286,6 +291,8 @@ function posibleToppings()
 	Mostrar cuántos donuts de cada tipo podemos comprar y las monedas sobrantes. (+ 50 exp)
 
 */
+
+console.log("4.- ");
 
 donutPurchase();
 separate();
@@ -322,6 +329,8 @@ El daily value de los carbohidratos de todos los donuts va a ser de 53% (+ 50 ex
 Crearle un nuevo atributo "Alergen" al donut llamado "Relaxing Alchemy" y que dentro de el ponga "Gluten Free" (+ 50 exp)
 
 */
+
+console.log("5.- ");
 
 modifyDonuts();
 
